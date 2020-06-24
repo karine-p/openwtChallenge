@@ -49,7 +49,7 @@ namespace ContactApi.Controllers
             var result =  await _context.ContactAnsSkillTable.Where(p => p.contactId == id).ToListAsync();
 
             if (!result.Any())
-            return NotFound();
+            return NoContent();
 
             return Ok(result);
         }
@@ -61,7 +61,7 @@ namespace ContactApi.Controllers
             var result =  await _context.ContactAnsSkillTable.Where(p => p.skillId == id).ToListAsync();
 
             if (!result.Any())
-            return NotFound();
+            return NoContent();
 
             return Ok(result);
         }
@@ -77,8 +77,12 @@ namespace ContactApi.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(contactAndSkill).State = EntityState.Modified;
-
+            var result = await _context.ContactAnsSkillTable.Where(
+                p => p.skillId == contactAndSkill.skillId 
+                && p.contactId == contactAndSkill.contactId).ToListAsync();
+            if(result.Count == 0) {
+                _context.Entry(contactAndSkill).State = EntityState.Modified;
+            }
             try
             {
                 await _context.SaveChangesAsync();
@@ -104,10 +108,55 @@ namespace ContactApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ContactAndSkill>> PostContactAndSkill(ContactAndSkill contactAndSkill)
         {
-            _context.ContactAnsSkillTable.Add(contactAndSkill);
-            await _context.SaveChangesAsync();
+            var result = await _context.ContactAnsSkillTable.Where(
+                p => p.skillId == contactAndSkill.skillId 
+                && p.contactId == contactAndSkill.contactId).ToListAsync();
+            if(result.Count == 0) {
+                _context.ContactAnsSkillTable.Add(contactAndSkill);
+                await _context.SaveChangesAsync();
+                
 
-            return CreatedAtAction("GetContactAndSkill", new { id = contactAndSkill.id }, contactAndSkill);
+                return CreatedAtAction("GetContactAndSkill", new { id = contactAndSkill.id }, contactAndSkill);
+            } else {
+                return BadRequest();
+            }
+        }
+
+
+        // DELETE: api/ContactAndSkill/deleteContact/5
+        [HttpDelete("deleteContact/{id}")]
+        public async Task<ActionResult<ContactAndSkill>> DeleteContactAndSkillDeleteContact(long id)
+        {
+            var result = await _context.ContactAnsSkillTable.Where(p => 
+            p.contactId == id).ToListAsync();
+            if (result == null)
+            {
+                return NoContent();
+            } else {
+                foreach (var row in result) {
+                    _context.ContactAnsSkillTable.Remove(row);
+                }
+            }
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        // DELETE: api/ContactAndSkill/deleteSkill/5
+        [HttpDelete("deleteSkill/{id}")]
+        public async Task<ActionResult<ContactAndSkill>> DeleteContactAndSkillDeleteSkill(long id)
+        {
+            var result = await _context.ContactAnsSkillTable.Where(p => 
+            p.skillId == id).ToListAsync();
+            if (result == null)
+            {
+                return NoContent();
+            } else {
+                foreach (var row in result) {
+                    _context.ContactAnsSkillTable.Remove(row);
+                }
+            }
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         // DELETE: api/ContactAndSkill/5
