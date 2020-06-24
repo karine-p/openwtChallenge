@@ -2,6 +2,7 @@ const uri = 'api/Contact';
 const skillUri = 'api/Skill/';
 const contactAndSkillUri = 'api/ContactAndSkill/';
 let contacts = [];
+let contactSkillDict = {};
 
 function getItems() {
   fetch(uri)
@@ -139,7 +140,7 @@ function _displayItems(data) {
     skillDiv.appendChild(divModal);
     
     let addSkillButton = button.cloneNode(false);
-    addSkillButton.innerText = 'Add a Skill';
+    addSkillButton.innerText = 'Manage skills';
     addSkillButton.setAttribute('onclick', `showSkillWindow(${item.id})`);
 
     skillDiv.appendChild(addSkillButton);
@@ -187,7 +188,8 @@ function getSkill(id) {
   fetch(fullUri)
     .then(response => response.json())
     .then((data) => {
-      displaySkills(id, data)
+      contactSkillDict[id] = data;
+      displaySkills(id, data);
     })
     .catch(error => console.log('No skill for this contact'));
 }
@@ -234,11 +236,19 @@ function showSkillWindow(contactId) {
 
         let td0 = tr.insertCell(0);
         td0.innerHTML = `${item.name}, ${item.level}`;
-
+        
+        let alreadyHave = (contactId in contactSkillDict)? contactSkillDict[contactId].map(x => x.skillId) : [];
         let addButton = document.createElement("button");
-        addButton.innerText = 'Add';
-        addButton.setAttribute('onclick', `addSkillToContact(${contactId}, ${item.id}, event)`);
-
+        if(alreadyHave.includes(item.id)) {
+          addButton.innerText = 'Remove';
+          addButton.style.color = 'red';
+          let contactAndSkillItem = contactSkillDict[contactId].find(x => x.skillId == item.id)
+          addButton.setAttribute('onclick', `removeSkillFromContact(${contactAndSkillItem.id}, event)`);
+        } else {
+          addButton.innerText = 'Add';
+          addButton.style.color = 'green';
+          addButton.setAttribute('onclick', `addSkillToContact(${contactId}, ${item.id}, event)`);
+        }
         let td1 = tr.insertCell(1);
         td1.appendChild(addButton);
       })
@@ -251,7 +261,6 @@ function addSkillToContact(contactId, skillId, event) {
     contactId: contactId,
     skillId: skillId
   }
-  console.log("adding skill to contact")
   fetch(contactAndSkillUri, {
     method: 'POST',
     headers: {
@@ -262,9 +271,18 @@ function addSkillToContact(contactId, skillId, event) {
   })
     .then(response => response.json())
     .then(() => {
-      console.log("contact added")
-      event. target.style.backgroundColor = 'green';
-      //addButton.setAttribute('color', 'green');
+      event.target.style.display = "none";
+    })
+    .catch(error => console.error('Unable to add item.', error));
+}
+
+function removeSkillFromContact(contactAndSkillId, event) {
+  fetch(contactAndSkillUri + contactAndSkillId, {
+    method: 'DELETE',
+  })
+    .then(response => response.json())
+    .then(() => {
+      event.target.style.display = "none";
     })
     .catch(error => console.error('Unable to add item.', error));
 }
