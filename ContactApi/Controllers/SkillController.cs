@@ -21,6 +21,7 @@ namespace ContactApi.Controllers
         }
 
         // GET: api/Skill
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Skill>>> GetSkills()
         {

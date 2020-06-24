@@ -125,3 +125,10 @@
 /Users/Karine/Documents/OpenWT/openwtChallenge/ContactApi/bin/Debug/netcoreapp3.1/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/Karine/Documents/OpenWT/openwtChallenge/ContactApi/bin/Debug/netcoreapp3.1/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/Karine/Documents/OpenWT/openwtChallenge/ContactApi/bin/Debug/netcoreapp3.1/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/Karine/Documents/OpenWT/openwtChallenge/ContactApi/bin/Debug/netcoreapp3.1/Microsoft.OpenApi.dll
+/Users/Karine/Documents/OpenWT/openwtChallenge/ContactApi/bin/Debug/netcoreapp3.1/Swashbuckle.AspNetCore.Swagger.dll
+/Users/Karine/Documents/OpenWT/openwtChallenge/ContactApi/bin/Debug/netcoreapp3.1/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/Karine/Documents/OpenWT/openwtChallenge/ContactApi/bin/Debug/netcoreapp3.1/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/Karine/Documents/OpenWT/openwtChallenge/ContactApi/obj/Debug/netcoreapp3.1/ContactApi.MvcApplicationPartsAssemblyInfo.cs
+/Users/Karine/Documents/OpenWT/openwtChallenge/ContactApi/bin/Debug/netcoreapp3.1/ContactApi.xml
+/Users/Karine/Documents/OpenWT/openwtChallenge/ContactApi/obj/Debug/netcoreapp3.1/ContactApi.xml
