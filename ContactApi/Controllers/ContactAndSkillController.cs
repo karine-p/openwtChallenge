@@ -20,14 +20,19 @@ namespace ContactApi.Controllers
             _context = context;
         }
 
-        // GET: api/ContactAndSkill
+        /// <summary>
+        /// Return the list of all contact and skill links.
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ContactAndSkill>>> GetContactAnsSkillTable()
         {
             return await _context.ContactAnsSkillTable.ToListAsync();
         }
 
-        // GET: api/ContactAndSkill/5
+        /// <summary>
+        /// Return the contact and skill link corresponding to id.
+        /// </summary>
+        /// <param name="id"></param>
         [HttpGet("{id}")]
         public async Task<ActionResult<ContactAndSkill>> GetContactAndSkill(long id)
         {
@@ -42,7 +47,10 @@ namespace ContactApi.Controllers
         }
 
 
-        // GET: search in the database for all lines where contact id = id
+        /// <summary>
+        /// Return the contact and skill link where the contact id corresponds to id.
+        /// </summary>
+        /// <param name="id"></param>
         [HttpGet("fromContact/{id}")]
         public async Task<ActionResult<ContactAndSkill>> GetContactAndSkillFromContact(long id)
         {
@@ -54,7 +62,10 @@ namespace ContactApi.Controllers
             return Ok(result);
         }
 
-        // GET: search in the database for all lines where skill id = id
+        /// <summary>
+        /// Return the contact and skill link where the skill id corresponds to id.
+        /// </summary>
+        /// <param name="id"></param>
         [HttpGet("fromSkill/{id}")]
         public async Task<ActionResult<ContactAndSkill>> GetContactAndSkillFromSkill(long id)
         {
@@ -66,9 +77,11 @@ namespace ContactApi.Controllers
             return Ok(result);
         }
 
-        // PUT: api/ContactAndSkill/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Update the contact and skill link corresponding to id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="contactAndSkill"></param>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutContactAndSkill(long id, ContactAndSkill contactAndSkill)
         {
@@ -102,9 +115,10 @@ namespace ContactApi.Controllers
             return NoContent();
         }
 
-        // POST: api/ContactAndSkill
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Create a new contact and skill link.
+        /// </summary>
+        /// <param name="contactAndSkill"></param>
         [HttpPost]
         public async Task<ActionResult<ContactAndSkill>> PostContactAndSkill(ContactAndSkill contactAndSkill)
         {
@@ -123,7 +137,10 @@ namespace ContactApi.Controllers
         }
 
 
-        // DELETE: api/ContactAndSkill/deleteContact/5
+        /// <summary>
+        /// Delete all the contact and skill links where the id appears as a contact.
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("deleteContact/{id}")]
         public async Task<ActionResult<ContactAndSkill>> DeleteContactAndSkillDeleteContact(long id)
         {
@@ -141,7 +158,10 @@ namespace ContactApi.Controllers
             return Ok();
         }
 
-        // DELETE: api/ContactAndSkill/deleteSkill/5
+        /// <summary>
+        /// Delete all the contact and skill links where the id appears as a skill.
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("deleteSkill/{id}")]
         public async Task<ActionResult<ContactAndSkill>> DeleteContactAndSkillDeleteSkill(long id)
         {
@@ -159,7 +179,10 @@ namespace ContactApi.Controllers
             return Ok();
         }
 
-        // DELETE: api/ContactAndSkill/5
+        /// <summary>
+        /// Delete the  contact and skill link corresponding to id.
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public async Task<ActionResult<ContactAndSkill>> DeleteContactAndSkill(long id)
         {

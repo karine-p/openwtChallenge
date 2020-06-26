@@ -20,15 +20,20 @@ namespace ContactApi.Controllers
             _context = context;
         }
 
-        // GET: api/Skill
         
+        /// <summary>
+        /// Return the list of all skills.
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Skill>>> GetSkills()
         {
             return await _context.Skills.ToListAsync();
         }
 
-        // GET: api/Skill/5
+        /// <summary>
+        /// Return the skill corresponding to id.
+        /// </summary>
+        /// <param name="id"></param>
         [HttpGet("{id}")]
         public async Task<ActionResult<Skill>> GetSkill(long id)
         {
@@ -42,9 +47,11 @@ namespace ContactApi.Controllers
             return skill;
         }
 
-        // PUT: api/Skill/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Modify the skill corresponding to id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="skill"></param>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSkill(long id, Skill skill)
         {
@@ -74,9 +81,9 @@ namespace ContactApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Skill
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Create a new skill.
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult<Skill>> PostSkill(Skill skill)
         {
@@ -86,7 +93,14 @@ namespace ContactApi.Controllers
             return CreatedAtAction("GetSkill", new { id = skill.id }, skill);
         }
 
-        // DELETE: api/Skill/5
+        /// <summary>
+        /// Delete the skill corresponding to id.
+        /// </summary>
+        /// <remark>
+        /// You must also request DELETE: api/ContactAndSkill/deleteSkill/{id} 
+        /// to ensure that there are no unexisting ids in this table
+        ///</remark>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public async Task<ActionResult<Skill>> DeleteSkill(long id)
         {

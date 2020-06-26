@@ -20,14 +20,19 @@ namespace ContactApi.Controllers
             _context = context;
         }
 
-        // GET: api/Contact
+        /// <summary>
+        /// Return the list of all contacts.
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Contact>>> GetContact()
         {
             return await _context.Contact.ToListAsync();
         }
 
-        // GET: api/Contact/5
+        /// <summary>
+        /// Return the contact corresponding to id.
+        /// </summary>
+        /// <param name="id"></param>
         [HttpGet("{id}")]
         public async Task<ActionResult<Contact>> GetContact(long id)
         {
@@ -41,9 +46,11 @@ namespace ContactApi.Controllers
             return contact;
         }
 
-        // PUT: api/Contact/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Modify the contact corresponding to id.
+        /// </summary>
+        /// <param name="id"></param>
+        ///<param name="contact"></param>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutContact(long id, Contact contact)
         {
@@ -74,9 +81,9 @@ namespace ContactApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Contact
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Create a new contact.
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult<Contact>> PostContact(Contact contact)
         {
@@ -86,7 +93,14 @@ namespace ContactApi.Controllers
             return CreatedAtAction(nameof(GetContact), new { id = contact.id }, contact);
         }
 
-        // DELETE: api/Contact/5
+        /// <summary>
+        /// Delete the contact corresponding to id.
+        /// </summary>
+        /// <remark>
+        /// You must also request DELETE: api/ContactAndSkill/deleteContact/{id} 
+        /// to ensure that there are no unexisting ids in this table
+        ///</remark>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public async Task<ActionResult<Contact>> DeleteContact(long id)
         {
